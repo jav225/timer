@@ -1,0 +1,400 @@
+:root {
+  --bg: #ffffff;
+  --text: #1f1f1f;
+  --muted: #5f6368;
+  --accent: #1a73e8;
+  --accent-soft: #e8f0fe;
+  --track: #e8eaed;
+  --chip-bg: #f1f3f4;
+  --warm: #e37400;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #202124;
+    --text: #e8eaed;
+    --muted: #9aa0a6;
+    --accent: #8ab4f8;
+    --accent-soft: #2d3b55;
+    --track: #3c4043;
+    --chip-bg: #2d3136;
+    --warm: #fa903f;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    "Roboto",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 20px;
+  gap: 30px;
+}
+
+.title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.clocks {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 32px;
+}
+
+.clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.clock-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.clock-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.remove-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background: var(--chip-bg);
+  color: var(--text);
+}
+
+.fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 60;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.fab:hover {
+  filter: brightness(1.08);
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+
+.add-menu {
+  position: fixed;
+  right: 24px;
+  bottom: 96px;
+  width: 280px;
+  padding: 8px;
+  background: var(--bg);
+  border: 1px solid var(--track);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  z-index: 50;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: var(--chip-bg);
+}
+
+.menu-time {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.add-menu .field {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.add-menu .field input {
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid var(--track);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+  padding: 8px 10px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.add-menu .btn {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.empty-hint {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--chip-bg);
+}
+
+.tab {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 8px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* ---------- Timer ---------- */
+
+.dial {
+  position: relative;
+  width: 320px;
+  height: 320px;
+}
+
+.dial svg {
+  display: block;
+}
+
+.progress-ring {
+  transition:
+    stroke-dashoffset 90ms linear,
+    stroke 200ms ease;
+}
+
+.dial-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.time {
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 58px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.time:hover {
+  color: var(--accent);
+}
+
+.time-input {
+  width: 240px;
+  border: 1px solid var(--track);
+  border-radius: 8px;
+  background: transparent;
+  padding: 6px 12px;
+  text-align: center;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-input.invalid {
+  border-color: var(--warm);
+  color: var(--warm);
+}
+
+.edit-error {
+  max-width: 220px;
+  color: var(--warm);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.done-label {
+  color: var(--warm);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.chips {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.separator {
+  width: 100%;
+  border-top: 1px solid var(--track);
+  margin: 8px 0;
+}
+
+.chip {
+  border: none;
+  background: var(--chip-bg);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.chip:hover {
+  filter: brightness(0.95);
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 30px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--chip-bg);
+  color: var(--text);
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid var(--track);
+  color: var(--muted);
+}
+
+.btn.icon {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Stopwatch ---------- */
+
+.sw-time {
+  width: 100%;
+  min-height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 62px;
+  font-weight: 300;
+  letter-spacing: -1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.lap-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px 8px;
+  width: 100%;
+  max-width: 360px;
+  border-top: 1px solid var(--track);
+}
+
+.lap-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 4px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  border-bottom: 1px solid var(--track);
+}
+
+.lap-list li:last-child {
+  border-bottom: none;
+}
